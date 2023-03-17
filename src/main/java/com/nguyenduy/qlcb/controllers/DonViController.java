@@ -29,10 +29,9 @@ public class DonViController {
     public ResponseEntity<List<DonVi>> getAllDonVi(@RequestParam(required = false, name = "ten") String ten) throws Throwable {
         try {
             List<DonVi> listDonVi;
-            if(ten == null || ten.isEmpty()) {
+            if (ten == null || ten.isEmpty()) {
                 listDonVi = donViService.getAllDonVi();
-            }
-            else {
+            } else {
                 listDonVi = donViService.getAllDonViByName(ten);
             }
             return new ResponseEntity<>(listDonVi, HttpStatus.OK);
@@ -44,19 +43,25 @@ public class DonViController {
     @PostMapping("/donvi/add")
     public ResponseEntity<DonVi> createDonVi(@RequestBody DonVi dv) throws ParseException, SQLException {
         DonVi d = donViService.insert(dv);
+        if (d == null) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(d, HttpStatus.CREATED);
     }
 
     @PutMapping("/donvi/{id}")
-    public ResponseEntity<DonVi> editDonVi(@PathVariable String id,@RequestBody DonVi dv) throws ParseException, SQLException {
+    public ResponseEntity<DonVi> editDonVi(@PathVariable String id, @RequestBody DonVi dv) throws ParseException, SQLException {
         DonVi d = donViService.update(id, dv);
         return new ResponseEntity<>(d, HttpStatus.OK);
     }
 
     @GetMapping("/donvi")
     public ResponseEntity<DonVi> getDonViByID(@RequestParam(name = "id")
-                                                  String id) throws ParseException, SQLException {
+                                              String id) throws ParseException, SQLException {
         DonVi d = donViService.getByIdDonVi(id);
+        if (d == null) {
+            return new ResponseEntity <>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(d, HttpStatus.OK);
     }
 

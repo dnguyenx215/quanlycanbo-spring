@@ -52,6 +52,9 @@ public class DonViServiceImpl implements IDonViService{
 
     @Override
     public DonVi insert(DonVi t) {
+        if(donViRepository.findById(t.getMaDonVi()).isPresent()) {
+            return null;
+        }
         return donViRepository.save(t);
     }
 }
