@@ -91,7 +91,7 @@ public class QuyetDinhKhenThuongController {
     public ResponseEntity<?> downloadFile(@PathVariable int id){
         byte[] fileData = qdktService.downloadFile(id);
         return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.valueOf("application/pdf"))
+                .contentType(MediaType.APPLICATION_PDF)
                 .body(fileData);
     }
 

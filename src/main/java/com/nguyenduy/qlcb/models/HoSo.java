@@ -18,7 +18,9 @@ public class HoSo implements Serializable {
 
     @JoinColumn(name = "ma_don_vi", foreignKey = @ForeignKey(name = "maDonVi"))
     private String maDonVi;
-    private String imageUrl;
+
+    @Lob
+    private byte[] imageUrl;
     private String hoVaTen;
     @Temporal(TemporalType.DATE)
     private Date ngaySinh;
@@ -89,11 +91,11 @@ public class HoSo implements Serializable {
         this.maDonVi = maDonVi;
     }
 
-    public String getImageUrl() {
+    public byte[] getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
+    public void setImageUrl(byte[] imageUrl) {
         this.imageUrl = imageUrl;
     }
 

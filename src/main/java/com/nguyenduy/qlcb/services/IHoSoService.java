@@ -1,7 +1,9 @@
 package com.nguyenduy.qlcb.services;
 
 import com.nguyenduy.qlcb.models.HoSo;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,4 +23,7 @@ public interface IHoSoService {
 
     HoSo insert(HoSo t);
 
+    HoSo uploadImage(long id, MultipartFile file) throws IOException;
+
+    public byte[] downloadFile(long fileID);
 }

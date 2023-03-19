@@ -2,12 +2,17 @@ package com.nguyenduy.qlcb.controllers;
 
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
+import com.nguyenduy.qlcb.models.QuyetDinhKhenThuong;
 import com.nguyenduy.qlcb.services.IHoSoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -83,6 +88,27 @@ public class HoSoController {
         }
     }
 
+    @PutMapping("/hoso/upload-image")
+    public ResponseEntity<?> uploadFileImage(
+            @RequestParam(name="id") long id,
+            @RequestPart(name="file") MultipartFile file) throws ParseException, SQLException {
+        try {
+
+            HoSo d = hoSoService.uploadImage(id, file);
+            return new ResponseEntity<>(d, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("hoso/open/{id}")
+    public ResponseEntity<?> downloadFile(@PathVariable long id){
+        byte[] fileData = hoSoService.downloadFile(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(fileData);
+    }
+
     @PutMapping("/hoso/updateheso")
     public ResponseEntity<HoSo> putHoSoMucLuong(@RequestParam("bac") int bac,
                                                 @RequestParam("heso") double heso,
@@ -96,6 +122,8 @@ public class HoSoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
     @PutMapping("/hoso/danhgia")
     public ResponseEntity<HoSo> putHoSoDanhGia(@RequestBody() String dg,

@@ -1,15 +1,14 @@
 package com.nguyenduy.qlcb.services;
 
 import com.nguyenduy.qlcb.models.HoSo;
+import com.nguyenduy.qlcb.models.QuyetDinhKhenThuong;
 import com.nguyenduy.qlcb.repository.IHoSoRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class HoSoServiceImpl implements IHoSoService {
@@ -107,5 +106,20 @@ public class HoSoServiceImpl implements IHoSoService {
             return null;
         }
         return hoSoRepository.save(t);
+    }
+
+
+    @Override
+    public HoSo uploadImage(long id, MultipartFile file) throws IOException {
+        String fileName = Objects.requireNonNull(file.getOriginalFilename()).replaceAll("\\s", "");
+        HoSo qd = hoSoRepository.findByIdHoSo(id);
+        qd.setImageUrl(file.getBytes());
+        return hoSoRepository.save(qd);
+    }
+
+    @Override
+    public byte[] downloadFile(long fileID) {
+        Optional<HoSo> dbFileData = hoSoRepository.findById(fileID);
+        return dbFileData.get().getImageUrl();
     }
 }
