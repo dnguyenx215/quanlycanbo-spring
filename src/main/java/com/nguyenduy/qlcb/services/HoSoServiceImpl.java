@@ -2,6 +2,7 @@ package com.nguyenduy.qlcb.services;
 
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
+import com.nguyenduy.qlcb.models.PhongBan;
 import com.nguyenduy.qlcb.repository.IHoSoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,11 @@ public class HoSoServiceImpl implements IHoSoService {
     }
 
     @Override
+    public List<HoSo> searchAllHoSoByPhongBan(PhongBan maPB) {
+        return hoSoRepository.findHoSoByPhongBan(maPB);
+    }
+
+    @Override
     public void delete(long id) {
         hoSoRepository.deleteById(id);
     }
@@ -49,6 +55,7 @@ public class HoSoServiceImpl implements IHoSoService {
             if (editItem != null) {
                 editItem.setSoHieuCBCCVC(hoSo.getSoHieuCBCCVC());
                 editItem.setDonVi(hoSo.getDonVi());
+                editItem.setPhongBan(hoSo.getPhongBan());
                 editItem.setHoVaTen(hoSo.getHoVaTen());
                 editItem.setNgaySinh(hoSo.getNgaySinh());
                 editItem.setGioiTinh(hoSo.getGioiTinh());

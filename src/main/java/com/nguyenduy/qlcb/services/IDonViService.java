@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDonViService {
     public List<DonVi> getAllDonVi();
-    List<DonVi> getAllDonViByName(String ten);
+    DonVi getDonViByName(String ten);
 
     void delete(String id);
 

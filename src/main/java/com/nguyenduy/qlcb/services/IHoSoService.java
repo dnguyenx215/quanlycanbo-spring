@@ -2,6 +2,7 @@ package com.nguyenduy.qlcb.services;
 
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
+import com.nguyenduy.qlcb.models.PhongBan;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ public interface IHoSoService {
     public List<HoSo> getAllHoSo();
     List<HoSo> searchAllHoSoByName(String name);
     List<HoSo> searchAllHoSoByDonVi(DonVi maDV);
+    List<HoSo> searchAllHoSoByPhongBan(PhongBan maPB);
     HoSo updateDanhGia(Date ngayDG, String danhGia, long id);
     HoSo updateKhenThuong(String soQD, Date ngayQD, String hinhThuc, long id);
     HoSo updateKyLuat(String soQD, Date ngayQD, String hinhThuc, long id);

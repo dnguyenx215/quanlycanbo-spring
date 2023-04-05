@@ -26,14 +26,11 @@ public class DonViController {
 
 
     @GetMapping("/donvi/list")
-    public ResponseEntity<List<DonVi>> getAllDonVi(@RequestParam(required = false, name = "ten") String ten) throws Throwable {
+    public ResponseEntity<List<DonVi>> getAllDonVi() throws Throwable {
         try {
             List<DonVi> listDonVi;
-            if (ten == null || ten.isEmpty()) {
-                listDonVi = donViService.getAllDonVi();
-            } else {
-                listDonVi = donViService.getAllDonViByName(ten);
-            }
+            listDonVi = donViService.getAllDonVi();
+
             return new ResponseEntity<>(listDonVi, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,7 +57,15 @@ public class DonViController {
                                               String id) throws ParseException, SQLException {
         DonVi d = donViService.getByIdDonVi(id);
         if (d == null) {
-            return new ResponseEntity <>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(d, HttpStatus.OK);
+    }
+    @GetMapping("/donvi/{ten}")
+    public ResponseEntity<DonVi> getDonViByTen(@PathVariable String ten) throws ParseException, SQLException {
+        DonVi d = donViService.getDonViByName(ten);
+        if (d == null) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(d, HttpStatus.OK);
     }

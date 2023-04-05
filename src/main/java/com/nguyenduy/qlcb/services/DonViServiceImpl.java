@@ -21,7 +21,7 @@ public class DonViServiceImpl implements IDonViService{
         return donViRepository.findAll();
     }
 
-    public List<DonVi> getAllDonViByName(String ten) {
+    public DonVi getDonViByName(String ten) {
         return donViRepository.findDonViByTenDonVi(ten);
     }
 

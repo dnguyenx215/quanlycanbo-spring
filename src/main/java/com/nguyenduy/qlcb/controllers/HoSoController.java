@@ -2,8 +2,10 @@ package com.nguyenduy.qlcb.controllers;
 
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
+import com.nguyenduy.qlcb.models.PhongBan;
 import com.nguyenduy.qlcb.services.IDonViService;
 import com.nguyenduy.qlcb.services.IHoSoService;
+import com.nguyenduy.qlcb.services.IPhongBanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +26,8 @@ public class HoSoController {
 
     @Autowired
     IDonViService donViService;
+    @Autowired
+    IPhongBanService phongBanService;
 
     @Autowired
     public HoSoController(IHoSoService hoSoService) {
@@ -32,7 +36,8 @@ public class HoSoController {
 
     @GetMapping("/hoso/list")
     public ResponseEntity<List<HoSo>> getAllHoSo(@RequestParam(required = false, name = "hoten") String hoTen,
-                                                 @RequestParam(required = false, name = "madv") String maDV) throws Throwable {
+                                                 @RequestParam(required = false, name = "madv") String maDV,
+                                                 @RequestParam(required = false, name = "mapb") String maPB) throws Throwable {
         try {
             List<HoSo> listHoSo;
             if (hoTen != null) {
@@ -40,7 +45,12 @@ public class HoSoController {
             } else if (maDV != null) {
                 DonVi dv = donViService.getByIdDonVi(maDV);
                 listHoSo = hoSoService.searchAllHoSoByDonVi(dv);
-            } else {
+            }
+            else if (maPB != null) {
+                PhongBan pb = phongBanService.getByIdPhongBan(Long.parseLong(maPB));
+                listHoSo = hoSoService.searchAllHoSoByPhongBan(pb);
+            }
+            else {
                 listHoSo = hoSoService.getAllHoSo();
             }
 

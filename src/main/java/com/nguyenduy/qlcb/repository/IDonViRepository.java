@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface IDonViRepository extends JpaRepository<DonVi, String> {
     DonVi findByMaDonVi(String maDonVi);
-    List<DonVi> findDonViByTenDonVi(String ten);
+    DonVi findDonViByTenDonVi(String ten);
 }

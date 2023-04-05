@@ -20,6 +20,10 @@ public class HoSo implements Serializable {
     @JoinColumn(name = "ma_don_vi", foreignKey = @ForeignKey(name = "ma_don_vi_ho_so_Fk"))
     private DonVi donVi;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_phong_ban", foreignKey = @ForeignKey(name = "ma_phong_ban_ho_so_Fk"))
+    private PhongBan phongBan;
+
     @Lob
     private byte[] imageUrl;
     private String hoVaTen;
@@ -82,6 +86,7 @@ public class HoSo implements Serializable {
     private Date ngayNghiHuu;
 
     private String trangThaiDaoTaoBoiDuong;
+    private String tenChuyenNganhDaoTaoBoiDuong;
 
     @Temporal(TemporalType.DATE)
     private Date ngayGuiDaoTaoBoiDuong;
@@ -89,6 +94,14 @@ public class HoSo implements Serializable {
     public HoSo() {
     }
 
+
+    public PhongBan getPhongBan() {
+        return phongBan;
+    }
+
+    public void setPhongBan(PhongBan phongBan) {
+        this.phongBan = phongBan;
+    }
 
     public long getIdHoSo() {
         return idHoSo;
@@ -427,5 +440,13 @@ public class HoSo implements Serializable {
 
     public void setDanhGia(String danhGia) {
         this.danhGia = danhGia;
+    }
+
+    public String getTenChuyenNganhDaoTaoBoiDuong() {
+        return tenChuyenNganhDaoTaoBoiDuong;
+    }
+
+    public void setTenChuyenNganhDaoTaoBoiDuong(String tenChuyenNganhDaoTaoBoiDuong) {
+        this.tenChuyenNganhDaoTaoBoiDuong = tenChuyenNganhDaoTaoBoiDuong;
     }
 }

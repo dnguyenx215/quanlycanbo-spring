@@ -2,6 +2,7 @@ package com.nguyenduy.qlcb.repository;
 
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
+import com.nguyenduy.qlcb.models.PhongBan;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,5 +21,6 @@ public interface IHoSoRepository extends JpaRepository<HoSo, Long> {
     List<HoSo> findByHoVaTen(String hoVaTen);
 
     List<HoSo> findHoSoByDonVi(DonVi maDV);
+    List<HoSo> findHoSoByPhongBan(PhongBan maPB);
     HoSo findByIdHoSo(Long id);
 }
