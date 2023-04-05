@@ -1,7 +1,7 @@
 package com.nguyenduy.qlcb.services;
 
+import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
-import com.nguyenduy.qlcb.models.QuyetDinhKhenThuong;
 import com.nguyenduy.qlcb.repository.IHoSoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +28,8 @@ public class HoSoServiceImpl implements IHoSoService {
         return hoSoRepository.findByHoVaTen(name);
     }
 
-    public List<HoSo> searchAllHoSoByDonVi(String maDV) {
-        return hoSoRepository.findHoSoByMaDonVi(maDV);
+    public List<HoSo> searchAllHoSoByDonVi(DonVi maDV) {
+        return hoSoRepository.findHoSoByDonVi(maDV);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class HoSoServiceImpl implements IHoSoService {
             HoSo editItem = hoSoRepository.findByIdHoSo(id);
             if (editItem != null) {
                 editItem.setSoHieuCBCCVC(hoSo.getSoHieuCBCCVC());
-                editItem.setMaDonVi(hoSo.getMaDonVi());
+                editItem.setDonVi(hoSo.getDonVi());
                 editItem.setHoVaTen(hoSo.getHoVaTen());
                 editItem.setNgaySinh(hoSo.getNgaySinh());
                 editItem.setGioiTinh(hoSo.getGioiTinh());
@@ -95,6 +95,30 @@ public class HoSoServiceImpl implements IHoSoService {
         if (edt != null) {
             edt.setDanhGia(danhGia);
             edt.setNgayDanhGia(ngayDG);
+            return hoSoRepository.save(edt);
+        }
+        return null;
+    }
+
+    @Override
+    public HoSo updateKhenThuong(String soQD, Date ngayQD, String hinhThuc, long id) {
+        HoSo edt = hoSoRepository.findByIdHoSo(id);
+        if (edt != null) {
+            edt.setSoQuyetDinhKhenThuong(soQD);
+            edt.setHinhThucKhenThuong(hinhThuc);
+            edt.setNgayKhenThuong(ngayQD);
+            return hoSoRepository.save(edt);
+        }
+        return null;
+    }
+
+    @Override
+    public HoSo updateKyLuat(String soQD, Date ngayQD, String hinhThuc, long id) {
+        HoSo edt = hoSoRepository.findByIdHoSo(id);
+        if (edt != null) {
+            edt.setSoQuyetDinhKyLuat(soQD);
+            edt.setHinhThucKyLuat(hinhThuc);
+            edt.setNgayKyLuat(ngayQD);
             return hoSoRepository.save(edt);
         }
         return null;

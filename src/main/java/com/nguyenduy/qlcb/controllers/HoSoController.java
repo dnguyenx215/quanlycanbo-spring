@@ -2,7 +2,7 @@ package com.nguyenduy.qlcb.controllers;
 
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
-import com.nguyenduy.qlcb.models.QuyetDinhKhenThuong;
+import com.nguyenduy.qlcb.services.IDonViService;
 import com.nguyenduy.qlcb.services.IHoSoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +21,9 @@ import java.util.List;
 @RequestMapping("/api")
 public class HoSoController {
     IHoSoService hoSoService;
+
+    @Autowired
+    IDonViService donViService;
 
     @Autowired
     public HoSoController(IHoSoService hoSoService) {
@@ -36,7 +38,8 @@ public class HoSoController {
             if (hoTen != null) {
                 listHoSo = hoSoService.searchAllHoSoByName(hoTen);
             } else if (maDV != null) {
-                listHoSo = hoSoService.searchAllHoSoByDonVi(maDV);
+                DonVi dv = donViService.getByIdDonVi(maDV);
+                listHoSo = hoSoService.searchAllHoSoByDonVi(dv);
             } else {
                 listHoSo = hoSoService.getAllHoSo();
             }
@@ -133,6 +136,40 @@ public class HoSoController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
             Date date = sdf.parse(ngayDG);
             HoSo putById = hoSoService.updateDanhGia(date, dg, macb);
+            return new ResponseEntity<>(putById, HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/hoso/khenthuong")
+    public ResponseEntity<HoSo> putHoSoKhenThuong(@RequestBody() String dg,
+                                               @RequestParam("soqd") String soQD,
+                                               @RequestParam("ngayqd") String ngayQD,
+                                               @RequestParam("id") long macb) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            Date date = sdf.parse(ngayQD);
+            HoSo putById = hoSoService.updateKhenThuong(soQD, date, dg, macb);
+            return new ResponseEntity<>(putById, HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/hoso/kyluat")
+    public ResponseEntity<HoSo> putHoSoKyLuat(@RequestBody() String dg,
+                                                  @RequestParam("soqd") String soQD,
+                                                  @RequestParam("ngayqd") String ngayQD,
+                                                  @RequestParam("id") long macb) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            Date date = sdf.parse(ngayQD);
+            HoSo putById = hoSoService.updateKyLuat(soQD, date, dg, macb);
             return new ResponseEntity<>(putById, HttpStatus.OK);
 
         } catch (Exception e) {

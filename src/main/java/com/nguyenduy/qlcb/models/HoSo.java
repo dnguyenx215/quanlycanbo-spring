@@ -16,8 +16,9 @@ public class HoSo implements Serializable {
     private long idHoSo;
     private String soHieuCBCCVC;
 
-    @JoinColumn(name = "ma_don_vi", foreignKey = @ForeignKey(name = "maDonVi"))
-    private String maDonVi;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ma_don_vi", foreignKey = @ForeignKey(name = "ma_don_vi_ho_so_Fk"))
+    private DonVi donVi;
 
     @Lob
     private byte[] imageUrl;
@@ -64,8 +65,30 @@ public class HoSo implements Serializable {
     private String danhGia;
     @Temporal(TemporalType.DATE)
     private Date ngayDanhGia;
+
+    private String hinhThucKhenThuong;
+    @Temporal(TemporalType.DATE)
+    private Date ngayKhenThuong;
+    private String soQuyetDinhKhenThuong;
+
+    private String hinhThucKyLuat;
+    @Temporal(TemporalType.DATE)
+    private Date ngayKyLuat;
+    private String soQuyetDinhKyLuat;
+
+    private String trangThaiNghiHuu;
+    private String hinhThucNghiHuu;
+    @Temporal(TemporalType.DATE)
+    private Date ngayNghiHuu;
+
+    private String trangThaiDaoTaoBoiDuong;
+
+    @Temporal(TemporalType.DATE)
+    private Date ngayGuiDaoTaoBoiDuong;
+
     public HoSo() {
     }
+
 
     public long getIdHoSo() {
         return idHoSo;
@@ -83,12 +106,13 @@ public class HoSo implements Serializable {
         this.soHieuCBCCVC = soHieuCBCCVC;
     }
 
-    public String getMaDonVi() {
-        return maDonVi;
+
+    public DonVi getDonVi() {
+        return donVi;
     }
 
-    public void setMaDonVi(String maDonVi) {
-        this.maDonVi = maDonVi;
+    public void setDonVi(DonVi donVi) {
+        this.donVi = donVi;
     }
 
     public byte[] getImageUrl() {
@@ -155,6 +179,8 @@ public class HoSo implements Serializable {
         this.danToc = danToc;
     }
 
+
+
     public long getTonGiao() {
         return tonGiao;
     }
@@ -211,6 +237,94 @@ public class HoSo implements Serializable {
         this.heSoLuong = heSoLuong;
     }
 
+    public String getHinhThucKhenThuong() {
+        return hinhThucKhenThuong;
+    }
+
+    public void setHinhThucKhenThuong(String hinhThucKhenThuong) {
+        this.hinhThucKhenThuong = hinhThucKhenThuong;
+    }
+
+    public Date getNgayKhenThuong() {
+        return ngayKhenThuong;
+    }
+
+    public void setNgayKhenThuong(Date ngayKhenThuong) {
+        this.ngayKhenThuong = ngayKhenThuong;
+    }
+
+    public String getSoQuyetDinhKhenThuong() {
+        return soQuyetDinhKhenThuong;
+    }
+
+    public void setSoQuyetDinhKhenThuong(String soQuyetDinhKhenThuong) {
+        this.soQuyetDinhKhenThuong = soQuyetDinhKhenThuong;
+    }
+
+    public String getHinhThucKyLuat() {
+        return hinhThucKyLuat;
+    }
+
+    public void setHinhThucKyLuat(String hinhThucKyLuat) {
+        this.hinhThucKyLuat = hinhThucKyLuat;
+    }
+
+    public Date getNgayKyLuat() {
+        return ngayKyLuat;
+    }
+
+    public void setNgayKyLuat(Date ngayKyLuat) {
+        this.ngayKyLuat = ngayKyLuat;
+    }
+
+    public String getSoQuyetDinhKyLuat() {
+        return soQuyetDinhKyLuat;
+    }
+
+    public void setSoQuyetDinhKyLuat(String soQuyetDinhKyLuat) {
+        this.soQuyetDinhKyLuat = soQuyetDinhKyLuat;
+    }
+
+    public String getTrangThaiNghiHuu() {
+        return trangThaiNghiHuu;
+    }
+
+    public void setTrangThaiNghiHuu(String trangThaiNghiHuu) {
+        this.trangThaiNghiHuu = trangThaiNghiHuu;
+    }
+
+    public String getHinhThucNghiHuu() {
+        return hinhThucNghiHuu;
+    }
+
+    public void setHinhThucNghiHuu(String hinhThucNghiHuu) {
+        this.hinhThucNghiHuu = hinhThucNghiHuu;
+    }
+
+    public Date getNgayNghiHuu() {
+        return ngayNghiHuu;
+    }
+
+    public void setNgayNghiHuu(Date ngayNghiHuu) {
+        this.ngayNghiHuu = ngayNghiHuu;
+    }
+
+    public String getTrangThaiDaoTaoBoiDuong() {
+        return trangThaiDaoTaoBoiDuong;
+    }
+
+    public void setTrangThaiDaoTaoBoiDuong(String trangThaiDaoTaoBoiDuong) {
+        this.trangThaiDaoTaoBoiDuong = trangThaiDaoTaoBoiDuong;
+    }
+
+
+    public Date getNgayGuiDaoTaoBoiDuong() {
+        return ngayGuiDaoTaoBoiDuong;
+    }
+
+    public void setNgayGuiDaoTaoBoiDuong(Date ngayGuiDaoTaoBoiDuong) {
+        this.ngayGuiDaoTaoBoiDuong = ngayGuiDaoTaoBoiDuong;
+    }
     public double getPhuCapThamNienVuotKhung() {
         return PhuCapThamNienVuotKhung;
     }

@@ -1,5 +1,6 @@
 package com.nguyenduy.qlcb.services;
 
+import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,8 +12,10 @@ import java.util.List;
 public interface IHoSoService {
     public List<HoSo> getAllHoSo();
     List<HoSo> searchAllHoSoByName(String name);
-    List<HoSo> searchAllHoSoByDonVi(String maDV);
+    List<HoSo> searchAllHoSoByDonVi(DonVi maDV);
     HoSo updateDanhGia(Date ngayDG, String danhGia, long id);
+    HoSo updateKhenThuong(String soQD, Date ngayQD, String hinhThuc, long id);
+    HoSo updateKyLuat(String soQD, Date ngayQD, String hinhThuc, long id);
 
     void delete(long id);
 
