@@ -16,6 +16,7 @@ public interface IHoSoService {
     List<HoSo> searchAllHoSoByDonVi(DonVi maDV);
     List<HoSo> searchAllHoSoByPhongBan(PhongBan maPB);
     HoSo updateDanhGia(Date ngayDG, String danhGia, long id);
+    HoSo updateQTDTBD(Date ngayGuiDaoTaoBoiDuong, String tenChuyenNganhDaoTaoBoiDuong, String trangThaiDaoTaoBoiDuong, long id);
     HoSo updateKhenThuong(String soQD, Date ngayQD, String hinhThuc, long id);
     HoSo updateKyLuat(String soQD, Date ngayQD, String hinhThuc, long id);
 

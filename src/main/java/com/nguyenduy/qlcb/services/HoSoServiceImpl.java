@@ -108,6 +108,20 @@ public class HoSoServiceImpl implements IHoSoService {
     }
 
     @Override
+    public HoSo updateQTDTBD(Date ngayGuiDaoTaoBoiDuong, String tenChuyenNganhDaoTaoBoiDuong,
+                             String trangThaiDaoTaoBoiDuong, long id) {
+        HoSo edt = hoSoRepository.findByIdHoSo(id);
+        if (edt != null) {
+            edt.setNgayGuiDaoTaoBoiDuong(ngayGuiDaoTaoBoiDuong);
+            edt.setTenChuyenNganhDaoTaoBoiDuong(tenChuyenNganhDaoTaoBoiDuong);
+            edt.setTrangThaiDaoTaoBoiDuong(trangThaiDaoTaoBoiDuong);
+            return hoSoRepository.save(edt);
+        }
+        return null;
+    }
+
+
+    @Override
     public HoSo updateKhenThuong(String soQD, Date ngayQD, String hinhThuc, long id) {
         HoSo edt = hoSoRepository.findByIdHoSo(id);
         if (edt != null) {
