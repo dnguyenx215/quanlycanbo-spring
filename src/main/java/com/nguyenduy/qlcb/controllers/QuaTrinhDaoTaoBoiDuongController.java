@@ -3,6 +3,7 @@ package com.nguyenduy.qlcb.controllers;
 import com.nguyenduy.qlcb.models.DonVi;
 import com.nguyenduy.qlcb.models.HoSo;
 import com.nguyenduy.qlcb.models.QuaTrinhDaoTaoBoiDuong;
+import com.nguyenduy.qlcb.services.HoSoServiceImpl;
 import com.nguyenduy.qlcb.services.QuaTrinhDaoTaoBoiDuongServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,15 +19,17 @@ import java.util.List;
 public class QuaTrinhDaoTaoBoiDuongController {
     @Autowired
     private QuaTrinhDaoTaoBoiDuongServiceImpl dtService;
-
+    @Autowired
+    private HoSoServiceImpl hoSoService;
     @GetMapping("/quatrinhdtbd/list")
     public ResponseEntity<List<QuaTrinhDaoTaoBoiDuong>> getAll() throws SQLException {
         List<QuaTrinhDaoTaoBoiDuong> ldt =  dtService.getAllQuaTrinhDaoTaoBoiDuong();
         return new ResponseEntity<>(ldt, HttpStatus.OK);
     }
 
-    @PostMapping("/quatrinhdtbd/listbyhoso")
-    public ResponseEntity<List<QuaTrinhDaoTaoBoiDuong>> getAllByHS(@RequestBody HoSo h) throws SQLException {
+    @GetMapping("/quatrinhdtbd/listbyhoso/{idhoso}")
+    public ResponseEntity<List<QuaTrinhDaoTaoBoiDuong>> getAllByHS(@PathVariable long idhoso) throws SQLException {
+        HoSo h = hoSoService.getByIdHoSo(idhoso);
         List<QuaTrinhDaoTaoBoiDuong> ldt =  dtService.getAllQuaTrinhDaoTaoBoiDuongByHoSo(h);
         return new ResponseEntity<>(ldt, HttpStatus.OK);
     }

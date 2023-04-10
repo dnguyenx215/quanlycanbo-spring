@@ -15,7 +15,7 @@ public class QuaTrinhDaoTaoBoiDuong {
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", foreignKey = @ForeignKey(name = "ma_ho_so_qua_trinh_dao_tao_Fk"))
+    @JoinColumn(name = "id_ho_so", foreignKey = @ForeignKey(name = "ma_ho_so_qua_trinh_dao_tao_Fk"))
     private HoSo hoSo;
 
     @Temporal(TemporalType.DATE)

@@ -188,6 +188,24 @@ public class HoSoController {
         }
     }
 
+    @PutMapping("/hoso/daotaoboiduong")
+    public ResponseEntity<HoSo> putHoSoDTBD(@RequestBody() String trangThaiDTBD,
+                                              @RequestParam("tencn") String tenCNDTBD,
+                                              @RequestParam("ngayguidtbd") String ngayGuiDTBD,
+                                              @RequestParam("id") long macb) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            Date date = sdf.parse(ngayGuiDTBD);
+            HoSo putById = hoSoService.updateQTDTBD(date, tenCNDTBD, trangThaiDTBD, macb);
+            return new ResponseEntity<>(putById, HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @DeleteMapping("/hoso/delete")
     public ResponseEntity<HoSo> deleteHoSo(@RequestParam("id") long idhs) {
         try {
