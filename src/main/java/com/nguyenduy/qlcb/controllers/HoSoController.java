@@ -136,6 +136,19 @@ public class HoSoController {
         }
     }
 
+    @PutMapping("/hoso/update-phucap")
+    public ResponseEntity<HoSo> putHoSoPhuCap(@RequestParam("phuCapVuotKhung") int pcVuotKhung,
+                                                @RequestParam("phuCapChucVu") double pcChucVu,
+                                                @RequestParam("macb") long macb) {
+        try {
+            HoSo putById = hoSoService.updatePhuCap(pcVuotKhung, pcChucVu, macb);
+            return new ResponseEntity<>(putById, HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     @PutMapping("/hoso/danhgia")
@@ -187,6 +200,23 @@ public class HoSoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/hoso/nghihuu")
+    public ResponseEntity<HoSo> putHoSoNghiHuu(@RequestBody() String hinhThuc,
+                                              @RequestParam("ngayqd") String ngayQD,
+                                              @RequestParam("id") long macb) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");
+            Date date = sdf.parse(ngayQD);
+            HoSo putById = hoSoService.updateNghiHuu(hinhThuc, date, macb);
+            return new ResponseEntity<>(putById, HttpStatus.OK);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     @PutMapping("/hoso/daotaoboiduong")
     public ResponseEntity<HoSo> putHoSoDTBD(@RequestBody() String trangThaiDTBD,

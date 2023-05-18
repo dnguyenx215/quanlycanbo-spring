@@ -19,10 +19,12 @@ public interface IHoSoService {
     HoSo updateQTDTBD(Date ngayGuiDaoTaoBoiDuong, String tenChuyenNganhDaoTaoBoiDuong, String trangThaiDaoTaoBoiDuong, long id);
     HoSo updateKhenThuong(String soQD, Date ngayQD, String hinhThuc, long id);
     HoSo updateKyLuat(String soQD, Date ngayQD, String hinhThuc, long id);
+    HoSo updateNghiHuu(String hinhThucNghiHuu, Date ngayNH, long id);
 
     void delete(long id);
 
     public HoSo updateMucLuong(int bac, double heSo, long maCB);
+    HoSo updatePhuCap(int phuCapVuotKhung, double phuCapChucVu, long maCB);
     public HoSo getByIdHoSo(long id);
 
     HoSo update(long id, HoSo t);

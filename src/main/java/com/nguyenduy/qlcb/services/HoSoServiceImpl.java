@@ -81,6 +81,7 @@ public class HoSoServiceImpl implements IHoSoService {
                 editItem.setNgoaiNgu(hoSo.getNgoaiNgu());
                 editItem.setTinHoc(hoSo.getTinHoc());
                 editItem.setSoBaoHiemXh(hoSo.getSoBaoHiemXh());
+                editItem.setTrangThaiHoSo(hoSo.getTrangThaiHoSo());
                 return hoSoRepository.save(editItem);
             }
         }
@@ -96,6 +97,17 @@ public class HoSoServiceImpl implements IHoSoService {
         }
         return null;
     }
+
+    public HoSo updatePhuCap(int phuCapVuotKhung, double phuCapChucVu, long maCB) {
+        HoSo edt = hoSoRepository.findByIdHoSo(maCB);
+        if (edt != null) {
+            edt.setPhuCapThamNienVuotKhung(phuCapVuotKhung);
+            edt.setHeSoPhuCapChucVu(phuCapChucVu);
+            return hoSoRepository.save(edt);
+        }
+        return null;
+    }
+
 
     public HoSo updateDanhGia(Date ngayDG, String danhGia, long id) {
         HoSo edt = hoSoRepository.findByIdHoSo(id);
@@ -140,6 +152,30 @@ public class HoSoServiceImpl implements IHoSoService {
             edt.setSoQuyetDinhKyLuat(soQD);
             edt.setHinhThucKyLuat(hinhThuc);
             edt.setNgayKyLuat(ngayQD);
+            if(hinhThuc.equals("Buộc thôi việc")) {
+                edt.setTrangThaiHoSo("Buộc thôi việc");
+            }
+            else if(hinhThuc.equals("Bãi nhiệm")) {
+                edt.setTrangThaiHoSo("Bãi nhiệm");
+
+            }
+            return hoSoRepository.save(edt);
+        }
+        return null;
+    }
+
+    @Override
+    public HoSo updateNghiHuu(String hinhThucNghiHuu, Date ngayNH, long id) {
+        HoSo edt = hoSoRepository.findByIdHoSo(id);
+        if (edt != null) {
+            edt.setNgayNghiHuu(ngayNH);
+            edt.setHinhThucNghiHuu(hinhThucNghiHuu);
+            if(hinhThucNghiHuu.equals("Tinh giản biên chế")) {
+                edt.setTrangThaiHoSo("Tinh giản biên chế");
+            }
+            else {
+                edt.setTrangThaiHoSo("Về hưu");
+            }
             return hoSoRepository.save(edt);
         }
         return null;
@@ -150,6 +186,7 @@ public class HoSoServiceImpl implements IHoSoService {
         if (hoSoRepository.findBySoHieuCBCCVC(t.getSoHieuCBCCVC()) != null) {
             return null;
         }
+        t.setTrangThaiHoSo("Bình thường");
         return hoSoRepository.save(t);
     }
 

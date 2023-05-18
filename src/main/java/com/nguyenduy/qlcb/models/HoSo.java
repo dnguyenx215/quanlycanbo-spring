@@ -14,6 +14,7 @@ public class HoSo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long idHoSo;
+    private String trangThaiHoSo;
     private String soHieuCBCCVC;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -193,6 +194,13 @@ public class HoSo implements Serializable {
     }
 
 
+    public String getTrangThaiHoSo() {
+        return trangThaiHoSo;
+    }
+
+    public void setTrangThaiHoSo(String trangThaiHoSo) {
+        this.trangThaiHoSo = trangThaiHoSo;
+    }
 
     public long getTonGiao() {
         return tonGiao;
